@@ -31,29 +31,29 @@ const TaskList = ({ tasks, addTask }) => {
           type="text"
           value={newTask}
           onChange={(e) => setNewTask(e.target.value)}
-          className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
           placeholder="Add a new task"
         />
         <input
           type="date"
           value={reminderDate}
           onChange={(e) => setReminderDate(e.target.value)}
-          className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
         />
         <input
           type="time"
           value={reminderTime}
           onChange={(e) => setReminderTime(e.target.value)}
-          className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
         />
         <select
           value={reminderMethod}
           onChange={(e) => setReminderMethod(e.target.value)}
-          className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
         >
           <option value="email">Email</option>
         </select>
-        <button type="submit" className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition">
+        <button type="submit" className="bg-indigo-600 text-white p-2 rounded hover:bg-indigo-700 transition">
           Add Task
         </button>
       </form>
