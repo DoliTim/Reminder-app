@@ -1,27 +1,15 @@
-// src/components/Login.js
-import React, { useEffect } from 'react';
-import jwt_decode from 'jwt-decode';
+import React from 'react';
+import { GoogleLogin } from '@react-oauth/google';
 
-const Login = ({ onLogin }) => {
-  useEffect(() => {
-    /* global google */
-    const handleCredentialResponse = (response) => {
-      const userObject = jwt_decode(response.credential);
-      onLogin(userObject);  // Pass user info to parent component
-    };
-
-    google.accounts.id.initialize({
-      client_id: 'YOUR_GOOGLE_CLIENT_ID',  // Replace with your actual Client ID
-      callback: handleCredentialResponse,
-    });
-
-    google.accounts.id.renderButton(
-      document.getElementById('google-signin'),
-      { theme: 'outline', size: 'large' } // Customize button appearance
-    );
-  }, [onLogin]);
-
-  return <div id="google-signin"></div>;
+const Login = ({ onSignIn }) => {
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <GoogleLogin
+        onSuccess={onSignIn}
+        onError={() => console.log('Login Failed')}
+      />
+    </div>
+  );
 };
 
 export default Login;
