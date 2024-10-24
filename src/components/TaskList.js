@@ -3,12 +3,23 @@ import Task from './Task';
 
 const TaskList = ({ tasks, addTask }) => {
   const [newTask, setNewTask] = useState('');
+  const [reminderTime, setReminderTime] = useState('');
+  const [reminderDate, setReminderDate] = useState('');
+  const [reminderMethod, setReminderMethod] = useState('email');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (newTask.trim()) {
-      addTask({ title: newTask, completed: false });
+      addTask({
+        title: newTask,
+        date: reminderDate,
+        time: reminderTime,
+        method: reminderMethod,
+        completed: false
+      });
       setNewTask('');
+      setReminderTime('');
+      setReminderDate('');
     }
   };
 
@@ -22,6 +33,26 @@ const TaskList = ({ tasks, addTask }) => {
           className="border p-2 mr-2"
           placeholder="Add a new task"
         />
+        <input
+          type="date"
+          value={reminderDate}
+          onChange={(e) => setReminderDate(e.target.value)}
+          className="border p-2 mr-2"
+        />
+        <input
+          type="time"
+          value={reminderTime}
+          onChange={(e) => setReminderTime(e.target.value)}
+          className="border p-2 mr-2"
+        />
+        <select
+          value={reminderMethod}
+          onChange={(e) => setReminderMethod(e.target.value)}
+          className="border p-2 mr-2"
+        >
+          <option value="email">Email</option>
+          {/* Add more options if needed */}
+        </select>
         <button type="submit" className="bg-blue-500 text-white p-2 rounded">
           Add Task
         </button>
@@ -35,4 +66,4 @@ const TaskList = ({ tasks, addTask }) => {
   );
 };
 
-export default TaskList;
+export default TaskList
