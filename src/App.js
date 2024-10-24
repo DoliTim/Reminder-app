@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import Header from './components/Header';
 import Login from './components/Login';
@@ -10,11 +10,18 @@ function App() {
   const [user, setUser] = useState(null);
   const [tasks, setTasks] = useState([]);
 
+  const fetchReminders = useCallback(async () => {
+    if (user) {
+      const reminders = await getRemindersFromMake(user.email);
+      setTasks(reminders);
+    }
+  }, [user]);
+
   useEffect(() => {
     if (user) {
       fetchReminders();
     }
-  }, [user]);
+  }, [user, fetchReminders]);
 
   const onSignIn = async (googleUser) => {
     const userData = await handleGoogleSignIn(googleUser);
@@ -24,12 +31,7 @@ function App() {
 
   const addTask = async (task) => {
     const newTask = await addReminderToMake(task, user.email);
-    setTasks([...tasks, newTask]);
-  };
-
-  const fetchReminders = async () => {
-    const reminders = await getRemindersFromMake(user.email);
-    setTasks(reminders);
+    setTasks(prevTasks => [...prevTasks, newTask]);
   };
 
   return (
