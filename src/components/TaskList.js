@@ -24,40 +24,40 @@ const TaskList = ({ tasks, addTask }) => {
   };
 
   return (
-    <div className="mt-8">
-      <form onSubmit={handleSubmit} className="mb-4">
+    <div className="bg-white shadow-lg rounded-lg p-6 mb-4 animate-fadeIn">
+      <h2 className="text-3xl font-bold mb-4 text-center text-gray-800">Reminders</h2>
+      <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
         <input
           type="text"
           value={newTask}
           onChange={(e) => setNewTask(e.target.value)}
-          className="border p-2 mr-2"
+          className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Add a new task"
         />
         <input
           type="date"
           value={reminderDate}
           onChange={(e) => setReminderDate(e.target.value)}
-          className="border p-2 mr-2"
+          className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <input
           type="time"
           value={reminderTime}
           onChange={(e) => setReminderTime(e.target.value)}
-          className="border p-2 mr-2"
+          className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <select
           value={reminderMethod}
           onChange={(e) => setReminderMethod(e.target.value)}
-          className="border p-2 mr-2"
+          className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="email">Email</option>
-          {/* Add more options if needed */}
         </select>
-        <button type="submit" className="bg-blue-500 text-white p-2 rounded">
+        <button type="submit" className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition">
           Add Task
         </button>
       </form>
-      <ul>
+      <ul className="mt-6 space-y-2">
         {tasks.map((task, index) => (
           <Task key={index} task={task} />
         ))}
@@ -66,4 +66,4 @@ const TaskList = ({ tasks, addTask }) => {
   );
 };
 
-export default TaskList
+export default TaskList;

@@ -31,18 +31,20 @@ function App() {
 
   const addTask = async (task) => {
     const newTask = await addReminderToMake(task, user.email);
-    setTasks(prevTasks => [...prevTasks, newTask]);
+    setTasks(prevTasks => [newTask, ...prevTasks]);
   };
 
   return (
     <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
-      <div className="container mx-auto px-4">
+      <div className="min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 flex flex-col items-center justify-center">
         <Header user={user} />
-        {!user ? (
-          <Login onSignIn={onSignIn} />
-        ) : (
-          <TaskList tasks={tasks} addTask={addTask} />
-        )}
+        <div className="w-full max-w-2xl p-4">
+          {!user ? (
+            <Login onSignIn={onSignIn} />
+          ) : (
+            <TaskList tasks={tasks} addTask={addTask} />
+          )}
+        </div>
       </div>
     </GoogleOAuthProvider>
   );
