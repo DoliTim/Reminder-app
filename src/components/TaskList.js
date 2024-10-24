@@ -1,23 +1,9 @@
 // src/components/TaskList.js
 
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Task from './Task';
-// Inside the TaskList component
-const toggleComplete = (id) => {
-    const updatedTasks = tasks.map((task) =>
-      task.id === id ? { ...task, completed: !task.completed } : task
-    );
-    setTasks(updatedTasks);
-  
-    const completedTask = updatedTasks.find((task) => task.id === id);
-  
-    // Push to Google Sheets via Make.com
-    axios.post('https://hook.eu2.make.com/rhlgrf6x90h8jkqwtwcdqu8p5z2y1bbc', {
-      task: completedTask.text,
-      completed: completedTask.completed,
-      timestamp: new Date().toISOString(),
-    });
-  };
+
 const TaskList = () => {
   const [tasks, setTasks] = useState(() => {
     const savedTasks = localStorage.getItem('tasks');
@@ -38,14 +24,19 @@ const TaskList = () => {
   }, [tasks]);
 
   const toggleComplete = (id) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task
-      )
+    const updatedTasks = tasks.map((task) =>
+      task.id === id ? { ...task, completed: !task.completed } : task
     );
+    setTasks(updatedTasks);
 
-    // Placeholder for Make.com integration
-    // You can add the Make.com integration code here in a later step
+    const completedTask = updatedTasks.find((task) => task.id === id);
+
+    // Push to Google Sheets via Make.com
+    axios.post('https://hook.make.com/your-webhook-url', {
+      task: completedTask.text,
+      completed: completedTask.completed,
+      timestamp: new Date().toISOString(),
+    });
   };
 
   const addTask = () => {
